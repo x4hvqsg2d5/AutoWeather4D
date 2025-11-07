@@ -122,6 +122,10 @@ body {
   background: var(--background-accent);
 }
 
+.teaser .subtitle {
+  margin-top: 2rem;
+}
+
 .teaser-video iframe {
   position: absolute;
   top: 0;
