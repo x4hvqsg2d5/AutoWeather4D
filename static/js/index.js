@@ -46,7 +46,7 @@ function copyBibTeX() {
         navigator.clipboard.writeText(bibtexElement.textContent).then(function() {
             // Success feedback
             button.classList.add('copied');
-            copyText.textContent = 'Cop';
+            copyText.textContent = 'Copied';
             
             setTimeout(function() {
                 button.classList.remove('copied');
@@ -63,7 +63,7 @@ function copyBibTeX() {
             document.body.removeChild(textArea);
             
             button.classList.add('copied');
-            copyText.textContent = 'Cop';
+            copyText.textContent = 'Copied';
             setTimeout(function() {
                 button.classList.remove('copied');
                 copyText.textContent = 'Copy';
@@ -89,6 +89,116 @@ window.addEventListener('scroll', function() {
         scrollButton.classList.remove('visible');
     }
 });
+
+// Abstract video gallery auto-rotation
+const ABSTRACT_VIDEO_ROTATE_DELAY = 5000;
+let abstractVideoRotationTimer = null;
+let currentAbstractVideoIndex = 0;
+
+function getPreviewItems() {
+    return Array.from(document.querySelectorAll('.preview-column .preview-item'));
+}
+
+function updateMainAbstractVideoFromItem(item) {
+    const mainVideo = document.getElementById('abstractMainVideo');
+    const caption = document.getElementById('abstractVideoCaption');
+
+    if (!mainVideo || !caption || !item) {
+        return;
+    }
+
+    const videoSrc = item.getAttribute('data-video-src');
+    const videoLabel = item.getAttribute('data-video-label') || '';
+
+    if (!videoSrc) {
+        return;
+    }
+
+    caption.textContent = videoLabel;
+
+    if (mainVideo.getAttribute('src') === videoSrc) {
+        mainVideo.classList.remove('is-transitioning');
+        mainVideo.currentTime = 0;
+        mainVideo.play().catch(() => {});
+        return;
+    }
+
+    const handleLoadedData = () => {
+        mainVideo.classList.remove('is-transitioning');
+        mainVideo.play().catch(() => {});
+        mainVideo.removeEventListener('loadeddata', handleLoadedData);
+    };
+
+    mainVideo.classList.add('is-transitioning');
+    mainVideo.pause();
+    mainVideo.addEventListener('loadeddata', handleLoadedData);
+    mainVideo.setAttribute('src', videoSrc);
+    mainVideo.load();
+}
+
+function highlightPreviewItemByIndex(index) {
+    const items = getPreviewItems();
+    if (items.length === 0) {
+        return;
+    }
+
+    const safeIndex = ((index % items.length) + items.length) % items.length;
+    currentAbstractVideoIndex = safeIndex;
+
+    items.forEach((btn, idx) => {
+        const isCurrent = idx === safeIndex;
+        btn.classList.toggle('is-active', isCurrent);
+        btn.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+    });
+
+    updateMainAbstractVideoFromItem(items[safeIndex]);
+}
+
+function scheduleAbstractVideoRotation() {
+    if (abstractVideoRotationTimer) {
+        clearTimeout(abstractVideoRotationTimer);
+    }
+
+    abstractVideoRotationTimer = setTimeout(() => {
+        const items = getPreviewItems();
+        if (items.length === 0) {
+            return;
+        }
+
+        const nextIndex = (currentAbstractVideoIndex + 1) % items.length;
+        highlightPreviewItemByIndex(nextIndex);
+        scheduleAbstractVideoRotation();
+    }, ABSTRACT_VIDEO_ROTATE_DELAY);
+}
+
+function handleManualPreviewSelection(index) {
+    highlightPreviewItemByIndex(index);
+    scheduleAbstractVideoRotation();
+}
+
+function initAbstractVideoGallery() {
+    const items = getPreviewItems();
+
+    if (items.length === 0) {
+        return;
+    }
+
+    items.forEach((item, idx) => {
+        item.addEventListener('click', () => {
+            handleManualPreviewSelection(idx);
+        });
+
+        item.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                handleManualPreviewSelection(idx);
+            }
+        });
+    });
+
+    highlightPreviewItemByIndex(0);
+    scheduleAbstractVideoRotation();
+}
 
 // Video carousel autoplay when in view
 function setupVideoCarouselAutoplay() {
@@ -138,5 +248,7 @@ $(document).ready(function() {
     
     // Setup video autoplay for carousel
     setupVideoCarouselAutoplay();
+
+    initAbstractVideoGallery();
 
 })
