@@ -241,13 +241,13 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <!-- TODO: Replace with your paper title -->
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-1 publication-title">AutoWeather4D: Autonomous Driving Video Weather Conversion via G-Buffer Dual-Pass Editing</h1>
             <div class="is-size-5 publication-authors">
               <!-- TODO: Replace with your paper authors and their personal links -->
               <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
+              <a href="https://scholar.google.com/citations?user=NAt3vgcAAAAJ&hl=en" target="_blank">Tianyu Liu</a><sup>*</sup>,</span>
                 <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
+                  <a href="https://scholar.google.com/citations?user=pgOy3m4AAAAJ&hl=zh-CN" target="_blank">Weitao Xiong</a><sup>*</sup>,</span>
                   <span class="author-block">
                     <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
                   </span>
@@ -325,9 +325,7 @@
       </video>
       <!-- TODO: Replace with your video description -->
       <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
+      AutoWeather4D: Multi-Dimensional Control for Weather and Time-of-Day Simulation in Autonomous Driving Videos. For more compelling visualizations, we refer readers to the supplementary videos. 
   </div>
 </section>
 <!-- End teaser video -->
@@ -341,9 +339,50 @@
         <div class="content has-text-justified">
           <!-- TODO: Replace with your paper abstract -->
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
+             Weather variation is critical for robust testing and validation of autonomous driving systems. Recent progress in generative editing has enabled weather manipulation in driving videos, but it often suffers from two key limitations. First, they exhibit physical inconsistency, such as unnatural light propagation and implausible dynamics of water or particles. Second, they offer limited control over fine-grained weather properties. To address these challenges, we propose <strong>AutoWeather4D</strong>, a novel framework that introduces a G-Buffer dual-pass editing mechanism: a Geometry Pass models interactions between weather elements and scene geometry, while a Light Pass adjusts illumination for day-night and weather-induced lighting changes. This dual-pass mechanism enables fine-grained control and generates physically plausible transitions. Experiments show that <strong>AutoWeather4D</strong> outperforms existing baselines in physical realism by avoiding ``impossible videos" and in controllability, generating diverse weather variations that closely align with real-world physics. This work advances autonomous driving simulation by providing a reliable tool for testing system robustness under complex weather conditions.
           </p>
         </div>
+      </div>
+    </div>
+    <div class="abstract-video-wrapper">
+      <div class="preview-column" role="tablist" aria-label="Abstract video previews">
+        <button class="preview-item is-active" type="button" data-video-index="0" data-video-src="static/videos/002.mp4" data-video-label="Input" aria-selected="true">
+          <div class="preview-video">
+            <video src="static/videos/002.mp4" muted autoplay loop playsinline preload="metadata"></video>
+          </div>
+          <span class="preview-label">Input</span>
+        </button>
+        <button class="preview-item" type="button" data-video-index="1" data-video-src="static/videos/002_rainy.mp4" data-video-label="Rainny" aria-selected="false">
+          <div class="preview-video">
+            <video src="static/videos/002_rainy.mp4" muted autoplay loop playsinline preload="metadata"></video>
+          </div>
+          <span class="preview-label">Rainny</span>
+        </button>
+        <button class="preview-item" type="button" data-video-index="2" data-video-src="static/videos/002_snowy.mp4" data-video-label="Snowy" aria-selected="false">
+          <div class="preview-video">
+            <video src="static/videos/002_snowy.mp4" muted autoplay loop playsinline preload="metadata"></video>
+          </div>
+          <span class="preview-label">Snowy</span>
+        </button>
+        <button class="preview-item" type="button" data-video-index="3" data-video-src="static/videos/002_moonlight.mp4" data-video-label="Night Time" aria-selected="false">
+          <div class="preview-video">
+            <video src="static/videos/002_moonlight.mp4" muted autoplay loop playsinline preload="metadata"></video>
+          </div>
+          <span class="preview-label">Night Time</span>
+        </button>
+        <button class="preview-item" type="button" data-video-index="4" data-video-src="static/videos/002_fog.mp4" data-video-label="Foggy" aria-selected="false">
+          <div class="preview-video">
+            <video src="static/videos/002_fog.mp4" muted autoplay loop playsinline preload="metadata"></video>
+          </div>
+          <span class="preview-label">Foggy</span>
+        </button>
+      </div>
+
+      <div class="main-video-column" role="tabpanel">
+        <div class="main-video-container">
+          <video id="abstractMainVideo" class="main-video" src="static/videos/002.mp4" autoplay muted loop playsinline preload="auto"></video>
+        </div>
+        <p id="abstractVideoCaption" class="main-video-caption">Input</p>
       </div>
     </div>
   </div>
@@ -405,7 +444,7 @@
           
           <div class="publication-video">
             <!-- TODO: Replace with your YouTube video ID -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/lfeYJJhhCN8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
         </div>
       </div>
